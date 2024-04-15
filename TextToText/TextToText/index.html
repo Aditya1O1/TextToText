@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Translation App</title>
+    <style>
+         body {
+     font-family: Arial, sans-serif;
+     background-color: black;
+     /* light grey background */
+     color: #333;
+     /* dark grey text color */
+     font-family: 'Montserrat', sans-serif;
+     text-align: center;
+     padding-top: 50px;
+     background-color: #1C1C1C;
+     color: black;
+ }
+
+ .container {
+     max-width: 600px;
+     margin: 50px auto;
+     margin-top: 2vw;
+     height: 60vw;
+     width: 60vw;
+     padding: 20px;
+     background-color: #1C1C1C;
+ }
+
+ h1 {
+     text-align: center;
+     color: black;
+     /* blue heading color */
+ }
+
+ textarea {
+     width: 100%;
+     height: 150px;
+     margin-bottom: 20px;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 10px;
+     /* slightly rounded corners */
+     resize: none;
+     /* disable resizing */
+ }
+
+ button {
+     display: block;
+     width: 100%;
+     padding: 10px;
+     background-color: #333333;
+     /* blue button background color */
+     color: #FFFFFF;
+     border: none;
+     border-radius: 20px;
+     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+     transition: all 0.3s ease;
+ }
+
+ button:hover {
+     transform: scale(1.1);
+     background-color: #555555;
+     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+ }
+
+ #translatedText {
+     margin-top: 20px;
+     height: 2vw;
+     padding: 10px;
+     border-radius: 5px;
+     /* light grey background */
+ }
+
+ /*#userText {
+     width: 100%;
+     border: 3px solid black;
+     box-sizing: border-box;
+     height: 5vw;
+     margin-top: 2vw;
+ }*/
+
+ #userText {
+     width: 96%;
+     height: 5vw;
+     margin-top: 1vw;
+     ;
+     border-radius: 20px;
+     background-color: #333333;
+     color: #FFFFFF;
+     border: none;
+     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+     transition: all 0.3s ease;
+ }
+
+ #userText:focus {
+     outline: none;
+     background-color: #555555;
+     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+ }
+
+ .language-dropdown {
+     width: 100%;
+     padding: 10px;
+     margin-bottom: 20px;
+     border: none;
+     /* Black border */
+     border-radius: 10px;
+     background-color: #333333;
+     /* White background */
+     color: white;
+     /* Black text color */
+     appearance: none;
+     /* Remove default appearance */
+     -webkit-appearance: none;
+     /* Remove default appearance for Safari */
+     -moz-appearance: none;
+     /* Remove default appearance for Firefox */
+     text-align: center;
+     /* Center-align text */
+     cursor: pointer;
+ }
+
+ /* Custom arrow icon */
+ .language-dropdown::after {
+     content: "\25BC";
+     /* Downward arrow */
+     position: absolute;
+     top: calc(50% - 5px);
+     /* Center vertically */
+     right: 10px;
+     /* Right align */
+     color: #000;
+     /* Black color */
+ }
+
+ /* Style on hover */
+ .language-dropdown:hover {
+     background-color: #333333;
+ }
+
+ /* Style on focus */
+ .language-dropdown:focus {
+     outline: none;
+     /* Remove outline */
+     box-shadow: 0 0 0 2px #000;
+     /* Black border on focus */
+ }
+
+ .word-buttons {
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+ }
+
+ .word-buttons button {
+     margin: 5px;
+     border-radius: 10px;
+     background-color: #333333;
+     color: #FFFFFF;
+     border: none;
+     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+     transition: all 0.3s ease;
+ }
+
+ .word-buttons button:hover {
+     transform: scale(1.2);
+     background-color: #555555;
+     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+ }
+
+ .word-buttons button.selected {
+     background-color: #FF0000;
+     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+     margin-bottom: 20px;
+ }
+
+ .feedbackButtons {
+     width: 40vw;
+     display: flex;
+     margin: 1vw;
+     hight: 4vw;
+ }
+
+ #rightBtn,
+ #wrongBtn {
+     border-radius: 20px;
+     background-color: #333333;
+     color: #FFFFFF;
+     border: none;
+     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+     transition: all 0.3s ease;
+ }
+
+ #feedbackDiv {
+     visibility: hidden;
+ }
+
+ .feedbackRight {
+     margin: 1vw;
+     height: 2vw;
+ }
+
+ .smiley {
+     font-size: 2vw;
+     ;
+     animation: smile 0.5s infinite;
+     margin-left: 0vw;
+ }
+
+ @keyframes smile {
+     0% {
+         transform: scale(1);
+     }
+
+     50% {
+         transform: scale(1.2);
+     }
+
+     100% {
+         transform: scale(1);
+     }
+ }
+
+ .feedbackWrong {
+     height: 3vw;
+ }
+
+ .feedbackResponse {
+     height: 1vw
+ }
+
+
+
+ .feedbackWrong {
+     height: 7vw;
+ }
+
+ .feedbackResponse {
+     height: 3vw;
+     background-color: red;
+ }
+
+ .sentence {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+     /* Optional, adjust according to your layout */
+     height: ;
+     /* Optional, adjust according to your layout */
+     border: ;
+     /* Optional, for visualization */
+ }
+
+ #word-buttons {
+     height: 4vw;
+     margin: 1vw;
+     padding: 1vw;
+     display: flex;
+     background-color: ;
+
+ }
+
+ #word-buttons button {
+     margin: 5px;
+     width: auto;
+     border-radius: 10px;
+     background-color: #333333;
+     color: #FFFFFF;
+     border: none;
+     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+     transition: all 0.3s ease;
+ }
+
+ #word-buttons button:hover {
+     transform: scale(1.2);
+     background-color: #555555;
+     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+ }
+
+ #word-buttons button.selected {
+     background-color: #FF0000;
+     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+     margin-bottom: 20px;
+ }
+
+ .heading {
+     display: flex;
+     align-items: center;
+     margin: 3px;
+ }
+
+ .avatar {
+     width: 70px;
+     /* Adjust size as needed */
+     height: 70px;
+     /* Adjust size as needed */
+     border-radius: 50%;
+     /* Make the image circular */
+     margin-right: 10px;
+     /* Add space between image and heading */
+ }
+    </style>
+</head>
+
+<body>
+    <div class="heading">
+        <img class="avatar" src="/logo/Aavaaz.jpg" alt="Image">
+    </div>
+
+    <div class="container">
+        <h1 style="color: white;">⚫ Welcome to aavaaz.ai</h1>
+        <textarea id="userText" placeholder="Enter text to translate"></textarea>
+
+        <!-- Dropdown menu for language selection -->
+        <select id="languageDropdown" class="language-dropdown">
+            <option value="" selected disabled>Select Language</option>
+            <option value="hi">Hindi</option>
+            <option value="pl">Polish</option>
+            <option value="fr">French</option>
+            <option value="zh">Mandarin</option>
+            <option value="de">German</option>
+            <option value="ar">Arabic</option>
+            <option value="tl">Tamil</option>
+            <option value="jap">Japanese</option>
+            <option value="ur">Urdu</option>
+        </select>
+
+        <button onclick="translateText()"
+            style="width: 50%;justify-content: center;margin-left: 12vw;">Translate</button>
+        <div id="translatedText" style="color: white;"></div>
+    </div>
+
+    <script>
+            // Function to translate text
+            function translateText() {
+                var userText = document.getElementById('userText').value;
+                var selectedLanguage = document.getElementById('languageDropdown').value;
+
+                var formData = new FormData();
+                formData.append('text', userText);
+                formData.append('language', selectedLanguage);
+
+                fetch('http://127.0.0.1:8000/translate/', {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        var translatedTextElement = document.getElementById('translatedText');
+                        //var feedbackButtonsElement = document.getElementById('feedbackDiv');
+                        if (translatedTextElement) {
+                            translatedTextElement.innerText = data.translated_text;
+                            //if (feedbackButtonsElement) {
+                            //feedbackButtonsElement.style.visibility = 'visible';
+                            //} else {
+                            //  console.error('FeedbackButtons element not found');
+                            //}
+                        }
+                        else {
+                            console.error('TranslatedText element not found');
+                        }
+
+
+                    })
+                    .catch(error => {
+                        console.error('There was an error!', error);
+                        var translatedTextElement = document.getElementById('translatedText');
+                        if (translatedTextElement) {
+                            translatedTextElement.innerText = 'Translation Error: ' + error.message;
+                        } else {
+                            console.error('TranslatedText element not found');
+                        }
+                    });
+            }
+
+
+            // Event listener to hide feedback options when refreshing the page
+            window.addEventListener('beforeunload', function (event) {
+                // Hide all feedback options
+                document.getElementById('feedbackDiv').style.display = 'none';
+                document.getElementById('smileyDiv').style.display = 'none';
+                document.getElementById('wrongFeedback').style.display = 'none';
+                document.getElementById('thankYouDiv').style.display = 'none';
+            });
+
+    </script>
+
+
+
+</body>
+
+</html>
